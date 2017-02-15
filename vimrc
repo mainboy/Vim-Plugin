@@ -1,57 +1,123 @@
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
 
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
+" TODO: this may not be in the correct place. It is intended to allow overriding <Leader>.
+" source ~/.vimrc.before if it exists.
+if filereadable(expand("~/.vimrc.before"))
+  source ~/.vimrc.before
+endif
 
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-set nocp
-filetype plugin on
-     
-let g:SuperTabDefaultCompletionType="context"
+" =============== Pathogen Initialization ===============
+" This loads all the plugins in ~/.vim/bundle
+" Use tpope's pathogen plugin to manage all other plugins
 
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplMapWindowNavArrows = 1 
-let g:miniBufExplMapCTabSwitchBufs = 1 
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplMoreThanOne=0
 
-let g:NERDTree_title="[NERDTree]"
-let g:winManagerWindowLayout="NERDTree|TagList"
+" ================ General Config ====================
 
-function! NERDTree_Start()
-    exec 'NERDTree'
-endfunction
+"set number                      "Line numbers are good
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set history=1000                "Store lots of :cmdline history
+set showcmd                     "Show incomplete cmds down the bottom
+set showmode                    "Show current mode down the bottom
+set gcr=a:blinkon0              "Disable cursor blink
+set visualbell                  "No sounds
+set autoread                    "Reload files changed outside vim
 
-function! NERDTree_IsValid()
-    return 1
-endfunction
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
 
-nmap wm :WMToggle<CR>
+"turn on syntax highlighting
+syntax on
 
-colo evening
+" ================ Search Settings  =================
 
-set nu
+set incsearch        "Find the next match as we type the search
+set hlsearch         "Hilight searches by default
+set viminfo='100,f1  "Save up to 100 marks, enable capital marks
+
+" ================ Turn Off Swap Files ==============
+
+set noswapfile
+set nobackup
+set nowb
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+
+" ================ Indentation ======================
 
 set autoindent
-set tabstop=4
-set shiftwidth=4
-set mouse=a
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
 
-set hlsearch
+filetype plugin on
+filetype indent on
 
-" 执行特定命令并保留光标位置及搜索历史
-function! Preserve(command)
-let _s=@/
-let l = line(".")
-let c = col(".")
-execute a:command
+" Display tabs and trailing spaces visually
+"set list listchars=tab:\ \ ,trail:·
 
-let @/=_s
-call cursor(l, c)
-endfunction
-" 格式化全文
-function! FullFormat()
-call Preserve("normal gg=G")
-endfunction
-nmap <M-F9> :call FullFormat()<CR>
+set nowrap       "Don't wrap lines
+set linebreak    "Wrap lines at convenient points
 
+" ================ Folds ============================
+
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+
+" ================ Completion =======================
+
+set wildmode=list:longest
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+
+"
+
+" ================ Scrolling ========================
+
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+"set tw=79
+"set colorcolumn=79
+
+" ================ Mouse Scrolling ========================
+
+":set mouse=nicr
+
+" ================ White spaces ========================
+"
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Uncomment the following to have Vim jump to the last position when
+" " reopening a file
+if has("autocmd")
+   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
