@@ -21,26 +21,26 @@ rm -rf cscope.files
 ### [pathogen](https://github.com/tpope/vim-pathogen)   
 功能: 将插件模块化
 
-### [cscope maps for vim]()   
+### [cscope maps for vim](https://github.com/joe-skb7/cscope-maps)   
 功能: 设置cscope的快捷键
 
-### [kernel coding style]()
+### [kernel coding style](https://github.com/vivien/vim-linux-coding-style)
 功能: 内核编码风格
 
-### [NERDTree]()
+### [NERDTree](https://github.com/scrooloose/nerdtree)
 功能：目录树状结构化
 
-### [Tagbar]()
+### [Tagbar](https://github.com/majutsushi/tagbar)
 功能: 符号名，函数名可视化
 
-### [file-line]()
+### [file-line](https://github.com/bogado/file-line)
 功能: 快速定位到错误行
 
-### [vim-airline]()
+### [vim-airline](https://github.com/vim-airline/vim-airline)
 功能: tab键相关
 
-### [syntastic]()
+### [syntastic](https://github.com/vim-syntastic/syntastic)
 功能: 显示综合出错行
 
-### [YCM]()
+### [YCM](https://github.com/Valloric/YouCompleteMe)
 功能: 自动补全
