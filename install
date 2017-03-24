@@ -1,0 +1,66 @@
+#!/bin/sh
+# copy some config
+
+# ======= copy tmux =============
+mv tmux.conf ~/.tmux.conf
+mv tmux.conf.local ~/.tmux.conf.local
+dir=~/.tmux
+if [! -d $dir]
+then
+	mkdir $dir
+else
+	echo "$dir exists"
+fi
+cp -r tmux/ $dir
+
+# ======= copy vimrc ============
+mv vimrc ~/.vimrc
+dir=~/.vim
+if [! -d $dir]
+then
+	mkdir $dir
+else
+	echo "$dir exists"
+fi
+mv autoload/ $dir
+mv backups/  $dir
+mv bundle/   $dir
+
+# ======= add plugins ===========
+dir=~/.vim/bundle/
+# cscope maps for vim
+git clone https://github.com/joe-skb7/cscope-maps $dir/cscope-maps
+
+# kernel coding style
+git clone https://github.com/vivien/vim-linux-coding-style $dir/vim-linux-coding-style
+
+# NerdTree
+git clone https://github.com/scrooloose/nerdtree $dir/nerdtree
+
+# Tagbar
+git clone https://github.com/majutsushi/tagbar $dir/tagbar
+
+# file-line
+git clone https://github.com/bogado/file-line $dir/file-line
+
+# vim-airline
+git clone https://github.com/vim-airline/vim-airline $dir/vim-airline
+
+# syntastic
+git clone https://github.com/vim-syntastic/syntastic $dir/syntastic
+
+# YCM
+git clone https://github.com/Valloric/YouCompleteMe $dir/YouCompleteMe
+cd $dir/YouCompleteMe
+git submodule update --init --recursive
+arch=$(uname -a | awk '{print $1}')
+if [ $arch=="Darwin" ]
+then
+	brew install cmake
+else
+	yum install -y cmake
+	apt-get install -y cmake
+fi 
+./install.py --clang-completer
+
+

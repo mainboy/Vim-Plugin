@@ -44,3 +44,7 @@ rm -rf cscope.files
 
 ### [YCM](https://github.com/Valloric/YouCompleteMe)
 功能: 自动补全
+Mac出现YouCompleteMe unavailable ... Symbol not found: PyCodecInfo解决方案
+```
+brew unlink python
+```

@@ -38,7 +38,7 @@ set laststatus=2
 let g:airline_section_b = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
 
-let g:airline_theme='luna'
+"let g:airline_theme='luna'
 let g:airline_powerline_fonts = 1
 
 "========== syntastic config ==============
@@ -83,4 +83,9 @@ let OmniCpp_SelectFirstItem = 0
 "========== color config ===================
 set t_Co=256
 
+"========== YouCompleteMe ==================
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+let g:ycm_python_binary_path = '/usr/bin/python'
 
