@@ -89,3 +89,20 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cp
 
 let g:ycm_python_binary_path = '/usr/bin/python'
 
+"========== ctags config ===================
+map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+"========== keyboard config ================
+nmap <leader>w :wq!<cr>
+nmap <leader>q :q!<cr>
+nmap <leader>f :find<cr>
+
+
+"========== other config ===================
+set foldmethod=marker
+
+set nu
+set cursorline
+
+set nocompatible
+
