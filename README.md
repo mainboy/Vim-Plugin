@@ -17,6 +17,17 @@ ctags -L cscope.files
 rm -rf cscope.files
 ```
 
+#### for any C language
+ctags
+```python
+find . -name '*.[hcS]' ! -path './.*' ! -path './test/*' -print | xargs ctags -a
+```
+cscope
+```python
+find . -name '*.[hcS]' ! -path './.*' ! -path './test/*' ! -type l -print > cscope.files
+cscope -bkqu
+```
+
 ## plugins for Vim
 ### [pathogen](https://github.com/tpope/vim-pathogen)   
 功能: 将插件模块化
