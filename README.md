@@ -24,7 +24,7 @@ find . -name '*.[hcS]' ! -path './.*' ! -path './test/*' -print | xargs ctags -a
 ```
 cscope
 ```python
-find . -name '*.[hcS]' ! -path './.*' ! -path './test/*' ! -type l -print > cscope.files
+find . -name '*.[hcS]' ! -path './.*' ! -path './test/*' ! -type l -print | tee cscope.files
 cscope -bkqu
 ```
 
